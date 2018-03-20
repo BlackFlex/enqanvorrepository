@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.popup {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.8); 
+	font-family: "Lato", sans-serif;
+}
+.popup-content {
+	margin: auto;
+	border: transparent;
+	width: 670px;
+	border-radius: 5px;
+	background: radial-gradient(#fc3998, #af2889);
+	color: #fff;
+	text-align: center;
+	font-size: 18px;
+	position: relative;
+}
+.popup-upper{
+	padding: 20px 85px 40px;
+}
+.popup-upper hr {
+	color: #fff;
+}
+.popup_bottom {
+	padding: 20px 85px;
+	background: #3e3e3e;
+	float: left;
+	width: 100%;
+	box-sizing: border-box;
+}
+.popup-upper h2 {
+	font-size: 40px;
+	margin-bottom: 15px;
+}
+p.small-text {
+	text-transform: uppercase;
+	letter-spacing: -0.9px;
+	margin-top: 0;
+}
+.popup_input label {
+	width: 100%;
+	text-align: left;
+	display: block;
+	margin-top: 20px;
+}
+.text-left {
+	font-size: 26px;
+	padding: 0;
+	margin: 20px 0;
+	float: left;
+}
+.popup_input input, .popup_input select, .popup_input textarea {
+	width: 100%;
+	margin-top: 10px;
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	box-sizing: border-box;
+	box-shadow: 0 0px 8px rgba(0, 0, 0, 0.24);
+}
+.forgetPasswortd {
+	text-align: right;
+	font-size: 14px;
+	width: 100%;
+	display: block;
+	margin-top: 10px;
+	color: #fff;
+	text-decoration: none;
+}
+.popup_input span.text-right {
+	text-align: right;
+	font-size: 14px;
+	margin-top: 5px;
+	float: right;
+}
+.btn_section {
+	margin-top: 25px;
+	display: block;
+}
+.popup-upper form {
+	display: inline-block;
+	width: 100%;
+	text-align: left;
+}
+.popu_right {
+	float: right;
+}
+.popu_left {
+	float: left;
+	margin-top: 10px;
+}	
+.popu_left label {
+    font-size: 14px;
+}
+.popup_input small {
+	font-size: 14px;
+	margin: 10px 0;
+	display: block;
+}
+.popup_input .fee_option input {
+	width: 80px;
+	padding: 5px;
+	border-radius: 0;
+	text-align: right;
+	display: inline-block;
+	margin-right: 10px;
+}
+.popup_input .fee_option small {
+	display: inline-block;
+	margin-right: 10px;
+}
+.popup_input .outer-radio small {
+	display: inline-block;
+}
+.popup_input label.radio_option {
+	margin-top: 10px;
+}
+.popu_left label.radio_option small {
+	font-size: 14px;    
+	line-height: 36px;
+}
+.color_btn {
+	background: linear-gradient(#ff3a9a, #da297f);
+	border: none;
+	color: #fff;
+	padding: 10px 45px;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+	font-size: 20px;
+	text-shadow: 0px 0px 1px #d02277;
+}
+.white_btn {
+	background: #ebebeb;
+	border-radius: 5px;
+	border: navajowhite;
+	padding: 10px 42px;
+	font-size: 20px;
+	margin-top: 10px;
+	text-shadow: 0px 0px 1px #fff;
+	float: right;
+}
+/* The radio_option */
+.radio_option {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.radio_option input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+	position: absolute;
+	top: 11px;
+	left: 0;
+	height: 15px;
+	width: 15px;
+	background-color: #fff;
+	border-radius: 2px;
+}
+/* On mouse-over, add a grey background color */
+.radio_option:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.radio_option input:checked ~ .checkmark {
+    background-color: #fff;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.radio_option input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.radio_option .checkmark::after {
+	left: 4px;
+	top: 2px;
+	width: 3px;
+	height: 7px;
+	border: solid #fe3a99;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+.close {
+	color: #fff;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	position: absolute;
+	right: 15px;
+	top: 0;
+}
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+
+<h2>Modal Example</h2>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="popup">
+
+  <!-- Modal content -->
+  <div class="popup-content">
+	<div class="popup-upper">
+		<span class="close">&times;</span>
+		<h2>SIGN UP TO Psychics Voice</h2>
+		<p class="small-text">TO GET 3 FREE MINUTES AND 60% OFF</p>
+		<hr>
+		<form>
+			<div class="popup_input">
+				<label>Email</label>
+				<input type="text" value="">
+			</div>
+			<div class="popup_input">
+				<label>Password</label>
+				<input type="password" value="">
+			</div>
+			<div class="popup_input">
+				<label>Screen Name <span class="text-right">(Optional)</span></label>
+				<input type="password" value="">
+			</div>
+			<div class="popup_input">
+				<label>Horoscope Sign <span class="text-right">(Optional)</span></label>
+				<select>
+					<option>Without Sign</option>
+				</select>
+			</div>
+			<div class="popup_input">
+				<label>Brief Description <span class="text-right">(Max 175 characters. No HTML! No All Caps!)</span></label>
+				<textarea></textarea>
+			</div>
+			<div class="popup_input">
+				<label>About My Services</label>
+				<textarea></textarea>
+			</div>
+			<div class="popup_input">
+				<label>Degrees</label>
+				<textarea></textarea>
+			</div>
+			<div class="popup_input">
+				<label>Experience & Qualifications</label>
+				<textarea></textarea>
+			</div>
+			<div class="popup_input">
+				<label>Language</label>
+				<select>
+					<option>English</option>
+					<option>English</option>
+					<option>English</option>
+					<option>English</option>
+					<option>English</option>
+				</select>
+			</div>
+			<div class="popup_input">
+				<label>Fees</label>
+				<small>How much will you charge for a minut of LIVE session (chat) ?</small>
+				<div class="fee_option">
+					<small>U.S $</small><input type="text" value="4.99"/><small>per minut (299.4 per hour)</small>
+				</div>
+				<small>How much will you charge for service rendered by email ?</small>
+				<textarea></textarea>
+			</div>
+			<div class="popup_input">
+				<div class="outer-radio">
+					<label class="radio_option">
+						<input type="checkbox" checked="checked">
+						<span class="checkmark"></span>
+						<small>I want to receive special offers, horoscopes and coupons by email.</small>
+					</label >
+				</div>
+				<div class="outer-radio">
+					<label  class="radio_option">
+						<input type="checkbox">
+						<span class="checkmark"></span>
+					<small>I have read and agree to the Zodiac Psychics terms and conditions.
+Your information will be kept completely confidential *</small>
+					</label >
+				</div>
+			</div>	
+			<div class="btn_section">
+				<div class="popu_left">
+					<label  class="radio_option">
+						<input type="checkbox">
+						<span class="checkmark"></span>
+						<small>Auto login</small>
+					</label > 
+				</div>
+				<div class="popu_right">
+					<button class="color_btn">Sign up</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="popup_bottom">
+		<h4 class="text-left">Already have an account?</h4>
+		<button class="white_btn">Sign In</button>
+	</div>
+  </div>
+
+</div>
+
+<script>
+// Get the popup
+var popup = document.getElementById('myModal');
+
+// Get the button that opens the popup
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the popup
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the popup 
+btn.onclick = function() {
+    popup.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the popup
+span.onclick = function() {
+    popup.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the popup, close it
+window.onclick = function(event) {
+    if (event.target == popup) {
+        popup.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>
