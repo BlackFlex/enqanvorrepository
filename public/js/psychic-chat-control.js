@@ -74,6 +74,9 @@ $(document).ready(function () {
         whereToSendPayPal = $(this).val()
     })
 
+    $('.closingButtons').click(function () {
+        $('.start-without-2').modal('hide')
+    })
 
     if (userStatusCheck == 'expert') {
         checkForRequests();
@@ -533,6 +536,44 @@ function moduleIfNotLeggedIn() {
 
 }
 
+function withoutstepslogin(a,id) {
+    var email = $(a).parents('.step2Login').find('input').eq(0).val()
+    var password = $(a).parents('.step2Login').find('input').eq(1).val()
+    var csrf_token = $('meta[name=csrf-token]').attr('content');
+    var autologin = "on";
+    if (isEmail(email) && $(!(password == ''))) {
+        $.ajax({
+            url: base_url + '/ajax/login',
+            data: {
+                "_token": csrf_token,
+                'email': email,
+                'password': password,
+                'remember': autologin
+
+            },
+            type: "POST",
+            dataType: "json",
+            success: function (response) {
+                if (response.auth == true) {
+                    $('.start-without-2').modal('hide');
+                    if(response.role=='client'){
+                      window.location.href='/messages/'+id;
+                    }else{
+                        window.location.href='/';
+                    }
+                }
+                else {
+                    alert('Email or Password not matched');
+                }
+            },
+
+        });
+    }
+    else {
+        alert('Email and Password required');
+    }
+}
+
 function moduleIfLeggedIn() {
     loggedIn = true;
     /*** DECOR LINE STYLES ***/
@@ -728,7 +769,7 @@ function removeHangoutScreen(a) {
 
 /******************************************************************************************************************** */
 function hangUpFunction(a) {
-    $(a).attr('disabled', true)
+    $(a).attr('disabled', true);
     if (null == userIndexGeneral) {
         $.ajax({
             url: base_url + '/change-chat-status-to-hang-up-expert-side',

@@ -38,9 +38,8 @@ class MessagesController extends Controller
         $this->tableConversationUser = DB::table('mc_conversation_user');
     }
 
-    public function showMessagesPage()
+    public function showMessagesPage($expert='all')
     {
-
         if (!Auth::user()) throw new AuthenticationException();
         Auth::user()->is_typing = 'notTyping';
         Auth::user()->save();
@@ -54,6 +53,14 @@ class MessagesController extends Controller
         $messagesInConversation = null;
         $first = true;
         $invoiceCount=0;
+
+
+        if($expert!='all' && Auth::user()->role=='client'){
+            $expert=DB::table('users')->where('id','=',$expert)->first();
+        }else if($expert!='all' && Auth::user()->role=='expert'){
+            return redirect('/');
+        }
+
 
         if(Auth::user()->role=='expert'){
             $invoiceAmount=DB::table('invoices')
@@ -97,7 +104,7 @@ class MessagesController extends Controller
             }
         }
         $user = Auth::user();
-        return view('front.message', compact('usersHaveConversation','invoiceAmount', 'messagesInConversation', 'user', 'conversationSubjects', 'unseeMessages', 'blockedOrNot', 'conversationIds'));
+        return view('front.message', compact('usersHaveConversation','invoiceAmount', 'messagesInConversation', 'user', 'conversationSubjects','expert', 'unseeMessages', 'blockedOrNot', 'conversationIds'));
     }
 
 
@@ -108,7 +115,7 @@ class MessagesController extends Controller
                 'user_id'=>$request->user_id,
                 'amount'=>$request->amount,
             ]);
-            return redirect('/messages');
+            return redirect('/messages/all');
         }
     }
 
@@ -154,7 +161,7 @@ class MessagesController extends Controller
             }
         }
         /////////rejected/////////////
-        return redirect('/messages');
+        return redirect('/messages/all');
 
     }
 
@@ -334,12 +341,12 @@ class MessagesController extends Controller
                     ['message_id' => $m->id, 'conversation_id' => $conversation->id, 'user_id' => $id, 'is_seen' => '0', 'is_sender' => 0]
                 );
                 $this->history->insert(
-                    [  'user_id' => $id, 'expert_id' => Auth::id(), 'time' => 0, 'type' =>0, 'cost' => 0 ,'conversation_id' => $conversation->id]
+                    [  'user_id' => $id, 'expert_id' => Auth::id(), 'type' =>0, 'total_length' => 0 ,'conversation_id' => $conversation->id]
                 );
             }
         }
 
-        return redirect('/messages');
+        return redirect('/messages/all');
     }
 
     public function getUsersStatus(Request $request)

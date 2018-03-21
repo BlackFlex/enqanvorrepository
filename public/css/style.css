@@ -2916,7 +2916,9 @@ label {
     padding-left: 90px;
     color: black;
 }
-
+.expert-rev-wrap{
+    overflow: hidden;
+}
 .new-contact textarea{
     padding-top: 0;
     width: 100%;

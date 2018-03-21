@@ -299,7 +299,7 @@
 
                         <a class="@if (\Route::current()->getName() == 'payments') normal-btn @endif admin-dasah-button" href="{{ URL::to("/payments") }}"> <i class="fa fa-credit-card"></i> Payments</a>
                         <a class="@if (\Route::current()->getName() == 'general-settings' || \Route::current()->getName() == 'personal-settings' || \Route::current()->getName() == 'contact-information-settings' || \Route::current()->getName() == 'email-settings' || \Route::current()->getName() == 'payment-settings' ) normal-btn @endif admin-dasah-button" href="{{ URL::to("/general-settings") }}"> <i class="fa fa-cog"></i> Settings</a>
-                        <a class="@if (\Route::current()->getName() == 'messages') normal-btn @endif admin-dasah-button" href="{{ URL::to("/messages") }}"> <i class="fa fa-comments"></i> Messages</a>
+                        <a class="@if (\Route::current()->getName() == 'messages') normal-btn @endif admin-dasah-button" href="{{route('messages',['expert'=>'all']) }}"> <i class="fa fa-comments"></i> Messages</a>
                         <a class="@if (\Route::current()->getName() == 'logout') normal-btn @endif admin-dasah-button" href="{{ URL::to('/logout') }}"> <img src="{{ asset("images/icons/block.png") }}" alt=""> Sign Out</a>
                         <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                     </div>

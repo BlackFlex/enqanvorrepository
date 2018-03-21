@@ -15,10 +15,10 @@
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-5">
                     <div class="expert-info-wrap">
-                        <h4>{{ $user->screen_name }} <sup class="sp-sup">2</sup></h4>
+                        <h4>{{ $user->screen_name }} <sup class="sp-sup">{{$allRates->count}}</sup></h4>
                         <p>Specializing in: {{ $user->spec_in }}</p>
                         <p class="start-wrap">
-                            @for($i=0;$i<count($rates);$i++)
+                            @for($i=0;$i<$allRates->rate;$i++)
                                 <i class="ti-star"></i>
                             @endfor
 
@@ -31,7 +31,9 @@
                             @endif
                             @if(!empty(Auth::user()))
                                 @if(Auth::user()->role == 'client')
-
+                                        <button class="green-grad"><i class="fa fa-comment"></i>
+                                            <a href="{{route('messages',['expert'=>$user->id]) }}">Mail</a>
+                                        </button>
                                     @if(!empty($ifFav->id))
                                         <button class="purp-grad" style="width:225px">
                                             <a style="color:#ffffff;" href="/delete-favorite-psychic/{{$user->id}}">
@@ -47,10 +49,58 @@
                                         </button>
                                     @endif
                                 @endif
+                            @else
+                               <button class="green-grad" data-toggle="modal" data-target="#startWithout2points{{ $user->id }}"><i class="fa fa-comment"></i>
+                                    <span>Mail</span>
+                                </button>
                             @endif
                         </div>
                     </div>
                 </div>
+
+                <div id="startWithout2points{{ $user->id }}" class="modal fade start-without-2" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content" style="background: transparent;border: none;">
+                            <div class="modal-body">
+                                <div class="modal-inner">
+                                    {{--MODAL STEP 2 LOGIN MODAL--}}
+                                    <div class="without_2_points">
+                                        <div class="modal-content custom-modal-for-login">
+                                            <div class="modal-body">
+                                                <div class="step2LoginHeader">
+                                                                            <span class="closingButtons step2LoginHeaderIcon">
+                                                                                <i class="ti-close"></i></span>
+                                                </div>
+                                                <div class="step2Login">
+                                                    <div class="step2InputBlock">
+                                                        <label for="step2Login">Email</label>
+                                                        <input type="email" name="username"
+                                                               style="padding-top: 0"
+                                                               class="step2-login-inputs">
+                                                    </div>
+                                                    <div class="step2InputBlock">
+                                                        <label for="step2Login">Password</label>
+                                                        <input type="password" name="username"
+                                                               style="padding-top: 0"
+                                                               class="step2-login-inputs">
+                                                    </div>
+                                                    <button class="start-session-des"
+                                                            onclick="withoutstepslogin(this,{{ $user->id }})">
+                                                        Sign In
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{--END MODAL STEP 2 LOGIN MODAL--}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
                 <div class="col-md-4 col-sm-4 col-xs-5">
                     <div class="expert-price-wrap">
 

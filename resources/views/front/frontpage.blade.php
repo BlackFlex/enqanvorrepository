@@ -968,7 +968,8 @@
                                                 </div>
                                             </div>
                                         @endif
-                                    @else
+
+                                            @else
                                         <div class="modal fade " id="chatStartModal{{ $user->id }}" tabindex="-1"
                                              role="dialog"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1487,10 +1488,56 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endif
+                                         <div id="startWithout2points{{ $user->id }}" class="modal fade start-without-2" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <!-- Modal content-->
+                                                        <div class="modal-content" style="background: transparent;border: none;">
+                                                            <div class="modal-body">
+                                                                <div class="modal-inner">
+                                                                    {{--MODAL STEP 2 LOGIN MODAL--}}
+                                                                    <div class="without_2_points">
+                                                                        <div class="modal-content custom-modal-for-login">
+                                                                            <div class="modal-body">
+                                                                                <div class="step2LoginHeader">
+                                                                            <span class="closingButtons step2LoginHeaderIcon">
+                                                                                <i class="ti-close"></i></span>
+                                                                                </div>
+                                                                                <div class="step2Login">
+                                                                                    <div class="step2InputBlock">
+                                                                                        <label for="step2Login">Email</label>
+                                                                                        <input type="email" name="username"
+                                                                                               style="padding-top: 0"
+                                                                                               class="step2-login-inputs">
+                                                                                    </div>
+                                                                                    <div class="step2InputBlock">
+                                                                                        <label for="step2Login">Password</label>
+                                                                                        <input type="password" name="username"
+                                                                                               style="padding-top: 0"
+                                                                                               class="step2-login-inputs">
+                                                                                    </div>
+                                                                                    <button class="start-session-des"
+                                                                                            onclick="withoutstepslogin(this,{{ $user->id }})">
+                                                                                        Sign In
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    {{--END MODAL STEP 2 LOGIN MODAL--}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                    <a href="#" class="normal-btn">Mail <img
-                                                src="{{ asset("images/small-icons/ic-mail.png") }}" alt="mail icon"></a>
+                                                    </div>
+                                                </div>
+                                    @endif
+                                            @if(!empty(Auth::user()))
+                                                @if(Auth::user()->role == 'client')
+                                        <a href="{{route('messages',['expert'=>$user->id]) }}" class="normal-btn">Mail <img src="{{ asset("images/small-icons/ic-mail.png") }}" alt="mail icon"></a>
+                                               @endif
+                                           @else
+                                                <a data-toggle="modal" data-target="#startWithout2points{{ $user->id }}" href="" class="normal-btn">Mail <img src="{{ asset("images/small-icons/ic-mail.png") }}" alt="mail icon"></a>
+                                            @endif
                                 </div>
                             </div>
                         </div>

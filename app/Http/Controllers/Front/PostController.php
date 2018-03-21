@@ -234,26 +234,13 @@ class PostController extends Controller
     {
         $user = Auth::user();
         if (!$user) throw new AuthenticationException();
-
-
         if ($slug == 'all') {
-
-            if(Auth::user()->role == 'expert') {
                 $histories = DB::table('histories')
                         ->join('users', 'histories.user_id', '=', 'users.id')
                         ->where('histories.expert_id', '=', Auth::id())
+                       // ->orWhere('histories.user_id', '=', Auth::id())
                     ->get();
-
-            }else{
-                $histories = DB::table('histories')
-                        ->join('users', 'histories.expert_id', '=', 'users.id')
-                        ->where('histories.user_id', '=', Auth::id())
-                    ->get();
-            }
-
             return view('front.readingHistory', compact('histories'));
-
-
         } else if ($slug == 'chat') {
             $type = 0;
         } else if ($slug == 'paid') {
@@ -276,6 +263,9 @@ class PostController extends Controller
                         array_push($ratesArray, 0);
                     }
                 }
+
+
+
             }else{
                 $histories = DB::table('histories')
                             ->join('users', 'histories.expert_id', '=', 'users.id')

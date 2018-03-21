@@ -103,7 +103,7 @@ Route::post('email-settings-main-expert' ,'Front\UserInfoChangeController@emailS
 
 Route::name('payment-settings')->get('/payment-settings', 'Front\UserInfoChangeController@paymentSettings');
 
-Route::name('messages')->get('/messages', 'MessagesController@showMessagesPage');
+Route::name('messages')->get('/messages/{expert}', 'MessagesController@showMessagesPage');
 Route::get('/frontpage', 'Front\PostController@frontpage');
 
 

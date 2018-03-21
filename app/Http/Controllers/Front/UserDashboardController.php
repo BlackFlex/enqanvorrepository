@@ -94,12 +94,19 @@ class UserDashboardController extends Controller
                 ->orderBy('created_at', 'DESC')
                 ->limit($rateCount)
                 ->get();
+
+
+        $allRates = DB::table('users')->select( DB::raw('avg(paid_session_ratings.rate) AS rate,count(paid_session_ratings.rate) AS count'))
+            ->leftJoin('paid_session_ratings', 'paid_session_ratings.expert_id', '=', 'users.id')
+            ->where('users.id', '=', $user->id)
+            ->first();
+
             $rateCount = $rateCount + 4;
 
             if(\Illuminate\Support\Facades\Auth::user()) {
                 $ifFav = DB::table('users_favorite_experts')->where('user_id', '=', \Illuminate\Support\Facades\Auth::user()->id)->first();
             }
-        return view('front.expert-pages.expert-page', compact('user', 'rates', 'ifFav','rateCount'));
+        return view('front.expert-pages.expert-page', compact('user', 'rates', 'ifFav','rateCount','allRates'));
 
     }
 

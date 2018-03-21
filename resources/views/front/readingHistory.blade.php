@@ -55,12 +55,12 @@
                                                 @endif
                                             </td>
                                             <td class="text-pink-payments">@if($history->type == 1) ONLINE CHAT
-                                                SESSION @endif</td>
+                                                SESSION @endif
+                                            </td>
                                             @if($history->status == -2)
                                                 <td class="text-silver-payments">
                                                     Missed Call (<a href=""><span style="color: #da297f"><b>send 3 free minutes</b></span></a>)
                                                 </td>
-
                                             @elseif(!empty($ratesArray))
                                                 <td class="text-silver-payments">
                                                     @if($ratesArray[$index] == 0)

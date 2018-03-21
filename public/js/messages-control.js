@@ -3,7 +3,7 @@ var base_url = $('meta[name=base_url]').attr('content');
 
 
 var t = base_url + '/messages';
-if (window.location.href == t) {
+if ($('#page_messages').length) {
 
     /*** BASE DOM ELEMENTS ***/
     var appendingPlace = $('.mess-blocks-place');
@@ -16,7 +16,7 @@ if (window.location.href == t) {
     var userToFind = $('#find_user');
     var containerCust = $('.user-found-container')
     var ajaxGetUnreadMessages = null;
-
+    var checkingExpert=$('#checkingExpert');
     /*** BASE VARIABLES ***/
     var userFirstLetter = $('#UnFLL').val()
     var checkIfLengthChange = false;
@@ -46,7 +46,22 @@ if (window.location.href == t) {
                 clicked = 0;
             }
             actionsList.toggleClass('displayBlock')
-        })
+        });
+
+        /***** checking if expert is set or no ***/
+        var CorrentexpertId=checkingExpert.val();
+        if(CorrentexpertId!='all'){
+                $('.hd').removeClass('active-mess-header')
+                $('.hd').addClass('notactive-mess-header')
+                $('#add-new-conv').addClass('active-mess-header');
+                $('#add-new-conv').removeClass('notactive-mess-header');
+                $('.message-box-header-right-side').addClass("display-none")
+                $('.message-box-new-message').removeClass("display-none")
+                $('.message-box-new-message').addClass("display-block")
+                $('.mess-block-main').addClass('display-none')
+                $('.new-contact-add-block').removeClass('display-none')
+                $('.new-contact-add-block').addClass('display-block')
+        }
 
 
         /*** CHANGE TYPING STATUS ***/
@@ -582,4 +597,5 @@ if (window.location.href == t) {
 
 
     }
+
 }

@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="pshics-block" style="border-bottom: none!important;">
-
+            <input type="hidden" value="page_messages" id="page_messages">
             <div class="row">
                 <div class="col-12">
                     <h3 style="border-bottom: none!important;">All messages</h3>
@@ -32,7 +32,7 @@
 
                                 <div class="col-6">
                                     <div class="row">
-                                        <div class="message-box-header hd notactive-mess-header" data-index="1" onclick="updateFrame(this)" data-show="new-conversations">
+                                        <div class="message-box-header hd notactive-mess-header" data-index="1" onclick="updateFrame(this)" data-show="new-conversations" id="add-new-conv">
                                             New
                                         </div>
                                     </div>
@@ -147,6 +147,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" value="{{($expert!='all')?'["'.$expert->id.']"':'all'}}" id="checkingExpert">
                             <div class="row mess-block-main display-block">
                                 <div class="mess-blocks-place">
                                     <input type="hidden" value="{{ $user->screen_name[0] }}" id="UnFLL">
@@ -303,9 +304,11 @@
                                   <div class="new-contactsend-inner">
                                       <div class="new-contact">
                                           <span class="contact-description">Consignee:</span>
-                                          <span class="new-contacts-names"></span>
+                                          <span class="new-contacts-names">
+                                              @if($expert != 'all')<span class="choosenContact" data-user="{{$expert->id}}" data-name="{{$expert->first_name}}">{{$expert->first_name}}</span>@endif
+                                          </span>
                                           <input type="text" disabled required>
-                                          <input type="hidden" value="" name="users_info" id="infos">
+                                          <input type="hidden" value="{{($expert!='all')?'["'.$expert->id.'"]':''}}" name="users_info" id="infos">
                                       </div>
                                       <div class="new-contact">
                                           <span class="contact-description">Subject:</span>

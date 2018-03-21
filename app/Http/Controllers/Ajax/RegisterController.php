@@ -215,6 +215,7 @@ class RegisterController extends Controller
 
             return response()->json([
                 'auth' => $auth,
+                'role'=>$user->role,
                 'intended' => ''
             ]);
         }
